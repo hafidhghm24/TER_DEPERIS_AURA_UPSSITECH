@@ -30,6 +30,7 @@ Regle absolue : **Ne jamais commiter ou pusher directement sur `main`.**
     Closes #<numero>
     ```
 3. Valider la creation de la PR.
+4. delete branch
 
 ### 5. Valider & Nettoyer
 
