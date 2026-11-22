@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  ros-env:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    
+    # Remplacement du "network_mode: host" par un mapping explicite
+    # 100% portable sur Linux, Windows (WSL) et macOS
+    ports:
+      - "8080:8080" # Web Video Server
+      - "9090:9090" # Rosbridge WebSocket
+    
+    privileged: true
+    ipc: host
+    
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    
+    volumes:
+      - ..:/workspaces/exomy-container:cached
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+    # ========================================================
+    # ⚠️ OPTIONS MATÉRIELLES (À décommenter selon votre PC)
+    # ========================================================
+    # 1. Accélération GPU Intel / AMD (Linux pur) :
+    # devices:
+    #   - /dev/dri:/dev/dri
+    
+    # 2. Support de manettes physiques branchées en USB (Linux pur) :
+    # devices:
+    #   - /dev/input:/dev/input
+
+    # 3. Accélération GPU Nvidia (Nécessite Nvidia Container Toolkit) :
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu, utility]
+
+    command: /bin/sh -c "while sleep 1000; do :; done"
