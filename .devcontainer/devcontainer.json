@@ -1,0 +1,20 @@
+{
+    "name": "AURA DEPERIS - ROS 2 Humble",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "ros-env",
+    "workspaceFolder": "/workspaces/aura-ws",
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-python.python",
+                "ms-iot.vscode-ros",
+                "redhat.vscode-xml"
+            ]
+        }
+    },
+
+    "forwardPorts": [8080, 9090],
+    "remoteUser": "ros_user"
+}
